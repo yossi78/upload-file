@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,20 +29,6 @@ public class UploadFileController {
 
 
     @SneakyThrows
-    @PostMapping(value = "/file", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json")
-    public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        try {
-            uploadFileService.saveFileToHardDrive(file);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }catch (Exception e){
-            log.error("Failed to save file",e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-
-
-    @SneakyThrows
     @PostMapping(value = "/files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json")
     public ResponseEntity uploadFiles(@RequestParam(value = "files") MultipartFile[] files) {
         try {
@@ -52,6 +39,8 @@ public class UploadFileController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 
 }

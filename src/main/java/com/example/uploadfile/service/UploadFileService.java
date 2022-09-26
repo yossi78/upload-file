@@ -13,17 +13,16 @@ public class UploadFileService {
 
 
     @SneakyThrows
-    public void saveFileToHardDrive(MultipartFile file)  {
-        log.info("Save file to hardDrive");
-        file.transferTo(new File("/home/swm/SWM_ALL/apache-tomcat/temp/TARGET-FOLDER/" + file.getOriginalFilename()));
-    }
-
-    @SneakyThrows
     public void saveFilesToHardDrive(MultipartFile[] files) {
         for (MultipartFile file : files) {
             saveFileToHardDrive(file);
         }
     }
 
+    @SneakyThrows
+    public void saveFileToHardDrive(MultipartFile file)  {
+        log.info("Save file to hardDrive");
+        file.transferTo(new File("/home/swm/SWM_ALL/apache-tomcat/temp/TARGET-FOLDER/" + file.getOriginalFilename()));
+    }
 
 }
