@@ -1,4 +1,5 @@
 package com.example.uploadfile.service;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,11 +16,10 @@ public class UploadFileService {
 
 
 
-    public void saveFileToHardDrive(MultipartFile file) throws IOException {
+    @SneakyThrows
+    public void saveFileToHardDrive(MultipartFile file)  {
         log.info("Save file to hardDrive");
-        byte[] bytes = file.getBytes();
-        Path path = Paths.get("/home/swm/SWM_ALL/apache-tomcat/temp/TARGET-FOLDER/" + file.getOriginalFilename());
-        Files.write(path, bytes);
+        file.transferTo(new File("/home/swm/SWM_ALL/apache-tomcat/temp/TARGET-FOLDER/" + file.getOriginalFilename()));
     }
 
     @SneakyThrows
