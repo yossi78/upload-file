@@ -1,0 +1,57 @@
+package com.example.uploadfile.api;
+import com.example.uploadfile.service.UploadFileService;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+
+@RestController
+@RequestMapping(value = "/upload")
+@Slf4j
+public class UploadFileController {
+
+
+    private UploadFileService uploadFileService;
+
+    @Autowired
+    public UploadFileController(UploadFileService uploadFileService){
+        this.uploadFileService=uploadFileService;
+    }
+
+
+    @SneakyThrows
+    @PostMapping(value = "/file", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json")
+    public ResponseEntity uploadFile(@RequestParam(value = "file") MultipartFile file) {
+        try {
+            uploadFileService.saveFileToHardDrive(file);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (Exception e){
+            log.error("Failed to save file",e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+    @SneakyThrows
+    @PostMapping(value = "/files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json")
+    public ResponseEntity uploadFiles(@RequestParam(value = "files") MultipartFile[] files) {
+        try {
+            uploadFileService.saveFilesToHardDrive(files);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (Exception e){
+            log.error("Failed to save files",e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+}
