@@ -58,7 +58,7 @@ public class UploadFileController {
 
 
     @SneakyThrows
-    @PostMapping(value = "/jsonWithFile", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE }, produces = "application/json")
+    @PostMapping(value = "/jsonWithFile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE }, produces = "application/json")
     public ResponseEntity uploadJsonWithFile(@RequestPart(value = "human") Human human , @RequestPart(value = "file") MultipartFile file) {
         try {
             uploadFileService.persistHumanAndSaveFileToHardDrive(human,file);
