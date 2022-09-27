@@ -42,9 +42,8 @@ public class UploadFileService {
 
 
     @SneakyThrows
-    public void persistHumanAndSaveFileToHardDrive(Human human) {
+    public void persistHumanAndSaveFileToHardDrive(Human human,MultipartFile file) {
         this.humanList.add(human);
-        MultipartFile file=human.getFile();
         if(file==null){
             return;
         }
