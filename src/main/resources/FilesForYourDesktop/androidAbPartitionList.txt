@@ -1,0 +1,30 @@
+[
+	{
+		"partitionName": "first partition",
+		"PartitionType": "PT_FOTA",
+		"mountPoint": "t1",
+		"genParams": "genParams",
+		"description": "support ECU-MODEL of Ecu Lwm2m",
+		"customOperation": "",
+		"sections": [
+			{
+				"sectionName": "section1",
+				"genParams": "aaa 111",
+				"description": "section1 for partition1"
+			},
+			{
+				"sectionName": "section2",
+				"genParams": "bbb 222",
+				"description": "section2 for partition1"
+			}
+		]
+	},
+	{
+		"partitionName": "second partition",
+		"PartitionType": "PT_FS",
+		"mountPoint": "t2",
+		"genParams": "genParams",
+		"description": "support ECU-MODEL of Ecu",
+		"customOperation": ""
+	}
+]
