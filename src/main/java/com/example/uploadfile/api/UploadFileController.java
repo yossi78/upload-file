@@ -32,7 +32,7 @@ public class UploadFileController {
 
     @SneakyThrows
     @PostMapping(value = "/files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = "application/json")
-    public ResponseEntity uploadFiles(@RequestParam(value = "files") MultipartFile[] files) {
+    public ResponseEntity uploadFiles(@RequestPart(value = "files") MultipartFile[] files) {
         try {
             uploadFileService.saveFilesToHardDrive(files);
             return ResponseEntity.status(HttpStatus.CREATED).build();
